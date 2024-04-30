@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/01_init.sql
+      - ./db/seed_shot_types.sql:/docker-entrypoint-initdb.d/02_seed_shot_types.sql
+      - ./db/seed_shot_locations.sql:/docker-entrypoint-initdb.d/03_seed_shot_locations.sql
+      - ./db/seed_allowed_shot_locations.sql:/docker-entrypoint-initdb.d/04_seed_allowed_shot_locations.sql
+      - ./db/seed_drill_types.sql:/docker-entrypoint-initdb.d/05_seed_drill_types.sql
+      - ./db/seed_workouts.sql:/docker-entrypoint-initdb.d/06_seed_workouts.sql
+    ports:
+      - "5432:5432"
